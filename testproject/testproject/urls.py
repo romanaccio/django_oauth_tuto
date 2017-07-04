@@ -21,6 +21,7 @@ from django.conf import settings
 from myapp.views import ApiEndpoint
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+import myapp
 
 # OAuth2 provider endpoints
 oauth2_endpoint_views = [
@@ -50,7 +51,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # OAuth 2 endpoints:
     url(r'^o/', include(oauth2_endpoint_views, namespace="oauth2_provider")),
-    url(r'^myapp/hello', ApiEndpoint.as_view()),  # an example resource endpoint
+	
+	
+    url(r'^myapp/hello/$', ApiEndpoint.as_view()),  # an example resource endpoint
 	url(r'^accounts/login/$', auth_views.LoginView.as_view(), name='login'),
+    url(r'^secret$', myapp.views.secret_page, name='secret'),
 
 ]
